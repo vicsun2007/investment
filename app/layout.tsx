@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import LanguageProvider from '@/components/LanguageProvider'
 
 export const metadata: Metadata = {
   title: 'Alpha VC Intelligence Hub',
@@ -12,8 +13,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="zh-CN" className="dark">
-      <body>{children}</body>
+    <html lang="en" className="dark">
+      <body>
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   )
 }

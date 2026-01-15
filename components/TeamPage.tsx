@@ -4,6 +4,8 @@ import Sidebar from './Sidebar'
 import Header from './Header'
 import { TrendingUp, FileText, Star, Clock, Award, Target, BarChart3 } from 'lucide-react'
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { useTranslation } from '@/hooks/useTranslation'
+import { useState, useEffect } from 'react'
 
 const teamMembers = [
   {
@@ -64,38 +66,41 @@ const teamStats = {
   activeMembers: 4,
 }
 
-const performanceMetrics = [
-  {
-    label: 'Reports Generated',
-    value: teamStats.totalReports,
-    change: '+12.4%',
-    icon: FileText,
-    color: 'text-blue-400',
-  },
-  {
-    label: 'Avg Quality Score',
-    value: `${teamStats.avgQualityScore}/10`,
-    change: '+0.5%',
-    icon: Star,
-    color: 'text-yellow-400',
-  },
-  {
-    label: 'Hours Saved',
-    value: `${teamStats.totalHoursSaved}h`,
-    change: '+8%',
-    icon: Clock,
-    color: 'text-green-400',
-  },
-  {
-    label: 'Validated Insights',
-    value: teamStats.totalInsights,
-    change: '+15%',
-    icon: Award,
-    color: 'text-purple-400',
-  },
-]
-
 export default function TeamPage() {
+  const { t } = useTranslation()
+  
+  const performanceMetrics = [
+    {
+      label: t.team.reportsGenerated,
+      value: teamStats.totalReports,
+      change: '+12.4%',
+      icon: FileText,
+      color: 'text-blue-400',
+    },
+    {
+      label: t.team.avgScore,
+      value: `${teamStats.avgQualityScore}/10`,
+      change: '+0.5%',
+      icon: Star,
+      color: 'text-yellow-400',
+    },
+    {
+      label: t.team.hoursSaved,
+      value: `${teamStats.totalHoursSaved}h`,
+      change: '+8%',
+      icon: Clock,
+      color: 'text-green-400',
+    },
+    {
+      label: t.team.validatedInsights,
+      value: teamStats.totalInsights,
+      change: '+15%',
+      icon: Award,
+      color: 'text-purple-400',
+    },
+  ]
+  const [sectorPercentages, setSectorPercentages] = useState<Record<string, number>>({})
+  
   // Mock data for Quality Score Trend
   const qualityScoreData = [
     { quarter: 'Q1 2023', avgScore: 7.8, target: 8.0 },
@@ -115,6 +120,16 @@ export default function TeamPage() {
     { month: 'Jun', reports: 98, hoursSaved: 37 },
   ]
 
+  // Generate sector percentages only on client side to avoid hydration mismatch
+  useEffect(() => {
+    const sectors = ['FinTech', 'SaaS', 'AI/ML', 'Healthcare']
+    const percentages: Record<string, number> = {}
+    sectors.forEach((sector) => {
+      percentages[sector] = Math.floor(Math.random() * 30 + 20)
+    })
+    setSectorPercentages(percentages)
+  }, [])
+
   return (
     <div className="flex h-screen overflow-hidden bg-background">
       <Sidebar />
@@ -125,18 +140,18 @@ export default function TeamPage() {
             {/* Page Header */}
             <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold text-white">Team Performance</h2>
+                <h2 className="text-2xl font-bold text-white">{t.team.title}</h2>
                 <p className="mt-1 text-sm text-gray-400">
-                  Track team productivity, quality metrics, and AI efficiency gains
+                  {t.team.subtitle}
                 </p>
               </div>
               <div className="flex gap-3">
                 <button className="flex items-center gap-2 rounded-lg border border-card-border bg-card-bg px-4 py-2 text-sm font-medium text-white hover:bg-sidebar-hover">
                   <BarChart3 className="h-4 w-4" />
-                  Export Report
+                  {t.team.exportReport}
                 </button>
                 <button className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-                  View Analytics
+                  {t.team.viewAnalytics}
                 </button>
               </div>
             </div>
@@ -161,13 +176,13 @@ export default function TeamPage() {
             {/* Team Members Performance */}
             <div className="mb-6 rounded-lg border border-card-border bg-card-bg p-6">
               <div className="mb-4 flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-white">Team Members Performance</h3>
+                <h3 className="text-lg font-semibold text-white">{t.team.teamMembersPerformance}</h3>
                 <div className="flex gap-2">
                   <button className="rounded-lg border border-card-border bg-sidebar-bg px-3 py-1.5 text-sm font-medium text-gray-300 hover:bg-sidebar-hover">
-                    Filter
+                    {t.common.filter}
                   </button>
                   <button className="rounded-lg border border-card-border bg-sidebar-bg px-3 py-1.5 text-sm font-medium text-gray-300 hover:bg-sidebar-hover">
-                    Sort
+                    {t.common.sort}
                   </button>
                 </div>
               </div>
@@ -197,28 +212,28 @@ export default function TeamPage() {
                       <div>
                         <div className="mb-1 flex items-center gap-2 text-xs text-gray-400">
                           <FileText className="h-3 w-3" />
-                          <span>Reports</span>
+                          <span>{t.team.reports}</span>
                         </div>
                         <p className="text-lg font-semibold text-white">{member.reportsGenerated}</p>
                       </div>
                       <div>
                         <div className="mb-1 flex items-center gap-2 text-xs text-gray-400">
                           <Star className="h-3 w-3" />
-                          <span>Avg Score</span>
+                          <span>{t.team.avgScore}</span>
                         </div>
                         <p className="text-lg font-semibold text-white">{member.avgQualityScore}/10</p>
                       </div>
                       <div>
                         <div className="mb-1 flex items-center gap-2 text-xs text-gray-400">
                           <Clock className="h-3 w-3" />
-                          <span>Hours Saved</span>
+                          <span>{t.team.hoursSaved}</span>
                         </div>
                         <p className="text-lg font-semibold text-white">{member.hoursSaved}h</p>
                       </div>
                       <div>
                         <div className="mb-1 flex items-center gap-2 text-xs text-gray-400">
                           <Award className="h-3 w-3" />
-                          <span>Insights</span>
+                          <span>{t.team.insights}</span>
                         </div>
                         <p className="text-lg font-semibold text-white">{member.insightsValidated}</p>
                       </div>
@@ -226,7 +241,7 @@ export default function TeamPage() {
 
                     <div className="mt-4 flex items-center gap-1 text-xs text-green-400">
                       <TrendingUp className="h-3 w-3" />
-                      <span>Performance trending up</span>
+                      <span>{t.team.performanceTrendingUp}</span>
                     </div>
                   </div>
                 ))}
@@ -238,9 +253,9 @@ export default function TeamPage() {
               {/* Quality Score Trend */}
               <div className="rounded-lg border border-card-border bg-card-bg p-6">
                 <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-white">Quality Score Trend</h3>
+                  <h3 className="text-lg font-semibold text-white">{t.team.qualityScoreTrend}</h3>
                   <button className="rounded-lg border border-card-border bg-sidebar-bg px-3 py-1.5 text-xs font-medium text-gray-300 hover:bg-sidebar-hover">
-                    Quarterly
+                    {t.team.quarterly}
                   </button>
                 </div>
                 <div className="h-64 rounded-lg bg-sidebar-bg p-4">
@@ -253,7 +268,7 @@ export default function TeamPage() {
                         fontSize={11}
                         tick={{ fill: '#94a3b8' }}
                         domain={[7.5, 8.6]}
-                        label={{ value: 'Score', angle: -90, position: 'insideLeft', fill: '#94a3b8' }}
+                        label={{ value: t.team.score, angle: -90, position: 'insideLeft', fill: '#94a3b8' }}
                       />
                       <Tooltip
                         contentStyle={{
@@ -274,7 +289,7 @@ export default function TeamPage() {
                         stroke="#3b82f6"
                         strokeWidth={2}
                         dot={{ fill: '#3b82f6', r: 4 }}
-                        name="Average Score"
+                        name={t.team.averageScore}
                       />
                       <Line
                         type="monotone"
@@ -283,7 +298,7 @@ export default function TeamPage() {
                         strokeWidth={2}
                         strokeDasharray="5 5"
                         dot={false}
-                        name="Target"
+                        name={t.team.target}
                       />
                     </LineChart>
                   </ResponsiveContainer>
@@ -293,9 +308,9 @@ export default function TeamPage() {
               {/* Productivity Metrics */}
               <div className="rounded-lg border border-card-border bg-card-bg p-6">
                 <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-white">Productivity Metrics</h3>
+                  <h3 className="text-lg font-semibold text-white">{t.team.productivityMetrics}</h3>
                   <button className="rounded-lg border border-card-border bg-sidebar-bg px-3 py-1.5 text-xs font-medium text-gray-300 hover:bg-sidebar-hover">
-                    Monthly
+                    {t.team.monthly}
                   </button>
                 </div>
                 <div className="h-64 rounded-lg bg-sidebar-bg p-4">
@@ -316,8 +331,8 @@ export default function TeamPage() {
                         wrapperStyle={{ color: '#94a3b8', fontSize: '12px' }}
                         iconType="rect"
                       />
-                      <Bar dataKey="reports" fill="#3b82f6" radius={[4, 4, 0, 0]} name="Reports Generated" />
-                      <Bar dataKey="hoursSaved" fill="#10b981" radius={[4, 4, 0, 0]} name="Hours Saved" />
+                      <Bar dataKey="reports" fill="#3b82f6" radius={[4, 4, 0, 0]} name={t.team.reportsGenerated} />
+                      <Bar dataKey="hoursSaved" fill="#10b981" radius={[4, 4, 0, 0]} name={t.team.hoursSaved} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -326,22 +341,25 @@ export default function TeamPage() {
 
             {/* Sector Distribution */}
             <div className="mt-6 rounded-lg border border-card-border bg-card-bg p-6">
-              <h3 className="mb-4 text-lg font-semibold text-white">Sector Focus Distribution</h3>
+              <h3 className="mb-4 text-lg font-semibold text-white">{t.team.sectorFocusDistribution}</h3>
               <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-                {['FinTech', 'SaaS', 'AI/ML', 'Healthcare'].map((sector) => (
-                  <div key={sector} className="rounded-lg border border-card-border bg-sidebar-bg p-4">
-                    <div className="mb-2 text-sm font-medium text-gray-400">{sector}</div>
-                    <div className="mb-2 text-2xl font-bold text-white">
-                      {Math.floor(Math.random() * 30 + 20)}%
+                {['FinTech', 'SaaS', 'AI/ML', 'Healthcare'].map((sector) => {
+                  const percentage = sectorPercentages[sector] || 25 // Default to 25% if not loaded yet
+                  return (
+                    <div key={sector} className="rounded-lg border border-card-border bg-sidebar-bg p-4">
+                      <div className="mb-2 text-sm font-medium text-gray-400">{sector}</div>
+                      <div className="mb-2 text-2xl font-bold text-white">
+                        {percentage}%
+                      </div>
+                      <div className="h-2 w-full rounded-full bg-card-bg">
+                        <div
+                          className="h-2 rounded-full bg-primary"
+                          style={{ width: `${percentage}%` }}
+                        />
+                      </div>
                     </div>
-                    <div className="h-2 w-full rounded-full bg-card-bg">
-                      <div
-                        className="h-2 rounded-full bg-primary"
-                        style={{ width: `${Math.floor(Math.random() * 30 + 20)}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
           </div>

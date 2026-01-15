@@ -4,8 +4,10 @@ import Sidebar from './Sidebar'
 import Header from './Header'
 import { Save, Key, Database, Bell, User, Shield, Globe, Mail } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from '@/hooks/useTranslation'
 
 export default function SettingsPage() {
+  const { t } = useTranslation()
   const [settings, setSettings] = useState({
     // General Settings
     language: 'zh-CN',
@@ -44,9 +46,9 @@ export default function SettingsPage() {
             {/* Page Header */}
             <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold text-white">Settings</h2>
+                <h2 className="text-2xl font-bold text-white">{t.settings.title}</h2>
                 <p className="mt-1 text-sm text-gray-400">
-                  Manage your account settings and preferences
+                  {t.settings.subtitle}
                 </p>
               </div>
               <button
@@ -54,7 +56,7 @@ export default function SettingsPage() {
                 className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark"
               >
                 <Save className="h-4 w-4" />
-                Save Changes
+                {t.common.save}
               </button>
             </div>
 
@@ -62,12 +64,12 @@ export default function SettingsPage() {
             <div className="mb-6 rounded-lg border border-card-border bg-card-bg p-6">
               <div className="mb-4 flex items-center gap-2">
                 <User className="h-5 w-5 text-gray-400" />
-                <h3 className="text-lg font-semibold text-white">General Settings</h3>
+                <h3 className="text-lg font-semibold text-white">{t.settings.generalSettings}</h3>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-gray-300">Language</label>
+                  <label className="mb-2 block text-sm font-medium text-gray-300">{t.settings.language}</label>
                   <select
                     value={settings.language}
                     onChange={(e) => setSettings({ ...settings, language: e.target.value })}
@@ -80,7 +82,7 @@ export default function SettingsPage() {
                 </div>
 
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-gray-300">Timezone</label>
+                  <label className="mb-2 block text-sm font-medium text-gray-300">{t.settings.timezone}</label>
                   <select
                     value={settings.timezone}
                     onChange={(e) => setSettings({ ...settings, timezone: e.target.value })}
@@ -93,15 +95,15 @@ export default function SettingsPage() {
                 </div>
 
                 <div>
-                  <label className="mb-2 block text-sm font-medium text-gray-300">Theme</label>
+                  <label className="mb-2 block text-sm font-medium text-gray-300">{t.settings.theme}</label>
                   <select
                     value={settings.theme}
                     onChange={(e) => setSettings({ ...settings, theme: e.target.value })}
                     className="w-full rounded-lg border border-card-border bg-sidebar-bg px-3 py-2 text-sm text-white focus:border-primary focus:outline-none"
                   >
-                    <option value="dark">Dark</option>
-                    <option value="light">Light</option>
-                    <option value="auto">Auto</option>
+                    <option value="dark">{t.settings.dark}</option>
+                    <option value="light">{t.settings.light}</option>
+                    <option value="auto">{t.settings.auto}</option>
                   </select>
                 </div>
               </div>
@@ -111,14 +113,14 @@ export default function SettingsPage() {
             <div className="mb-6 rounded-lg border border-card-border bg-card-bg p-6">
               <div className="mb-4 flex items-center gap-2">
                 <Bell className="h-5 w-5 text-gray-400" />
-                <h3 className="text-lg font-semibold text-white">Notification Settings</h3>
+                <h3 className="text-lg font-semibold text-white">{t.settings.notificationSettings}</h3>
               </div>
 
               <div className="space-y-4">
                 <label className="flex items-center justify-between">
                   <div>
-                    <span className="text-sm font-medium text-white">Email Notifications</span>
-                    <p className="text-xs text-gray-400">Receive notifications via email</p>
+                    <span className="text-sm font-medium text-white">{t.settings.emailNotifications}</span>
+                    <p className="text-xs text-gray-400">{t.settings.emailNotificationsDesc}</p>
                   </div>
                   <input
                     type="checkbox"
@@ -135,8 +137,8 @@ export default function SettingsPage() {
 
                 <label className="flex items-center justify-between">
                   <div>
-                    <span className="text-sm font-medium text-white">Push Notifications</span>
-                    <p className="text-xs text-gray-400">Receive browser push notifications</p>
+                    <span className="text-sm font-medium text-white">{t.settings.pushNotifications}</span>
+                    <p className="text-xs text-gray-400">{t.settings.pushNotificationsDesc}</p>
                   </div>
                   <input
                     type="checkbox"
@@ -153,8 +155,8 @@ export default function SettingsPage() {
 
                 <label className="flex items-center justify-between">
                   <div>
-                    <span className="text-sm font-medium text-white">Report Notifications</span>
-                    <p className="text-xs text-gray-400">Notify when new reports are available</p>
+                    <span className="text-sm font-medium text-white">{t.settings.reportNotifications}</span>
+                    <p className="text-xs text-gray-400">{t.settings.reportNotificationsDesc}</p>
                   </div>
                   <input
                     type="checkbox"
@@ -171,8 +173,8 @@ export default function SettingsPage() {
 
                 <label className="flex items-center justify-between">
                   <div>
-                    <span className="text-sm font-medium text-white">Analysis Notifications</span>
-                    <p className="text-xs text-gray-400">Notify when analysis is complete</p>
+                    <span className="text-sm font-medium text-white">{t.settings.analysisNotifications}</span>
+                    <p className="text-xs text-gray-400">{t.settings.analysisNotificationsDesc}</p>
                   </div>
                   <input
                     type="checkbox"
@@ -193,13 +195,13 @@ export default function SettingsPage() {
             <div className="mb-6 rounded-lg border border-card-border bg-card-bg p-6">
               <div className="mb-4 flex items-center gap-2">
                 <Key className="h-5 w-5 text-gray-400" />
-                <h3 className="text-lg font-semibold text-white">API Settings</h3>
+                <h3 className="text-lg font-semibold text-white">{t.settings.apiSettings}</h3>
               </div>
 
               <div className="space-y-4">
                 <div>
                   <label className="mb-2 block text-sm font-medium text-gray-300">
-                    OpenAI API Key
+                    {t.settings.openaiApiKey}
                   </label>
                   <input
                     type="password"
@@ -215,7 +217,7 @@ export default function SettingsPage() {
 
                 <div>
                   <label className="mb-2 block text-sm font-medium text-gray-300">
-                    Gemini API Key
+                    {t.settings.geminiApiKey}
                   </label>
                   <input
                     type="password"
@@ -232,13 +234,13 @@ export default function SettingsPage() {
             <div className="mb-6 rounded-lg border border-card-border bg-card-bg p-6">
               <div className="mb-4 flex items-center gap-2">
                 <Database className="h-5 w-5 text-gray-400" />
-                <h3 className="text-lg font-semibold text-white">Storage Settings</h3>
+                <h3 className="text-lg font-semibold text-white">{t.settings.storageSettings}</h3>
               </div>
 
               <div className="space-y-4">
                 <div>
                   <label className="mb-2 block text-sm font-medium text-gray-300">
-                    Max File Size (MB)
+                    {t.settings.maxFileSize} (MB)
                   </label>
                   <input
                     type="number"
@@ -252,7 +254,7 @@ export default function SettingsPage() {
 
                 <div>
                   <label className="mb-2 block text-sm font-medium text-gray-300">
-                    Allowed File Types
+                    {t.settings.allowedFileTypes}
                   </label>
                   <div className="flex flex-wrap gap-2">
                     {['pdf', 'xlsx', 'csv', 'docx', 'txt'].map((type) => (
@@ -290,13 +292,13 @@ export default function SettingsPage() {
             <div className="mb-6 rounded-lg border border-card-border bg-card-bg p-6">
               <div className="mb-4 flex items-center gap-2">
                 <Shield className="h-5 w-5 text-gray-400" />
-                <h3 className="text-lg font-semibold text-white">Security Settings</h3>
+                <h3 className="text-lg font-semibold text-white">{t.settings.securitySettings}</h3>
               </div>
 
               <div className="space-y-4">
                 <label className="flex items-center justify-between">
                   <div>
-                    <span className="text-sm font-medium text-white">Two-Factor Authentication</span>
+                    <span className="text-sm font-medium text-white">{t.settings.twoFactorAuth}</span>
                     <p className="text-xs text-gray-400">Add an extra layer of security</p>
                   </div>
                   <input
@@ -309,7 +311,7 @@ export default function SettingsPage() {
 
                 <div>
                   <label className="mb-2 block text-sm font-medium text-gray-300">
-                    Session Timeout (minutes)
+                    {t.settings.sessionTimeout} ({t.settings.minutes})
                   </label>
                   <input
                     type="number"

@@ -6,8 +6,11 @@ import MetricCard from './MetricCard'
 import { FileText, Star, Sparkles, CheckCircle2, Download, Zap } from 'lucide-react'
 import RecentResearchTable from './RecentResearchTable'
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { useTranslation } from '@/hooks/useTranslation'
 
 export default function Dashboard() {
+  const { t } = useTranslation()
+
   // Mock data for Team Investment Capability Accumulation
   const capabilityData = [
     { sector: 'Q1', 'Validated Insights': 45, 'Generated Research': 120 },
@@ -26,19 +29,19 @@ export default function Dashboard() {
             {/* Page Header */}
             <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold text-white">Portfolio Research Hub</h2>
+                <h2 className="text-2xl font-bold text-white">{t.dashboard.title}</h2>
                 <p className="mt-1 text-sm text-gray-400">
-                  Monitoring team research output and AI-driven capability accumulation.
+                  {t.dashboard.subtitle}
                 </p>
               </div>
               <div className="flex gap-3">
                 <button className="flex items-center gap-2 rounded-lg border border-card-border bg-card-bg px-4 py-2 text-sm font-medium text-white hover:bg-sidebar-hover">
                   <Download className="h-4 w-4" />
-                  Export Insights
+                  {t.dashboard.exportInsights}
                 </button>
                 <button className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
                   <Zap className="h-4 w-4" />
-                  Analyze Sector
+                  {t.dashboard.analyzeSector}
                 </button>
               </div>
             </div>
@@ -46,27 +49,27 @@ export default function Dashboard() {
             {/* Metrics Grid */}
             <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               <MetricCard
-                title="TOTAL REPORTS"
+                title={t.dashboard.totalReports}
                 value="1,284"
                 change="+12.4% vs last month"
                 icon={FileText}
               />
               <MetricCard
-                title="AVG. QUALITY SCORE"
+                title={t.dashboard.avgQualityScore}
                 value="8.4/10"
                 change="+0.5% benchmark: 7.2"
                 icon={Star}
                 iconColor="text-yellow-400"
               />
               <MetricCard
-                title="AI EFFICIENCY"
+                title={t.dashboard.aiEfficiency}
                 value="+42%"
                 change="+8% hours saved"
                 icon={Sparkles}
                 iconColor="text-purple-400"
               />
               <MetricCard
-                title="VALIDATED INSIGHTS"
+                title={t.dashboard.validatedInsights}
                 value="312"
                 change="+15% accumulation"
                 icon={CheckCircle2}
@@ -80,10 +83,10 @@ export default function Dashboard() {
               <div className="lg:col-span-2 rounded-lg border border-card-border bg-card-bg p-6">
                 <div className="mb-4 flex items-center justify-between">
                   <h3 className="text-lg font-semibold text-white">
-                    Team Investment Capability Accumulation
+                    {t.dashboard.teamCapability}
                   </h3>
                   <button className="rounded-lg border border-primary bg-transparent px-3 py-1.5 text-sm font-medium text-primary hover:bg-primary/10">
-                    Quarterly View
+                    {t.dashboard.quarterlyView}
                   </button>
                 </div>
                 <div className="h-64 rounded-lg bg-sidebar-bg p-4">
@@ -118,13 +121,13 @@ export default function Dashboard() {
                   <span>AI/ML</span>
                 </div>
                 <p className="mt-2 text-xs text-gray-500">
-                  Showing Validated Insights (solid) vs Generated Research (light) per sector.
+                  {t.dashboard.showingInsights}
                 </p>
               </div>
 
               {/* AI Model Performance */}
               <div className="rounded-lg border border-card-border bg-card-bg p-6">
-                <h3 className="mb-4 text-lg font-semibold text-white">AI Model Performance</h3>
+                <h3 className="mb-4 text-lg font-semibold text-white">{t.dashboard.aiModelPerformance}</h3>
                 <div className="space-y-4">
                   <div>
                     <div className="mb-2 flex items-center justify-between text-sm">
@@ -164,17 +167,17 @@ export default function Dashboard() {
             <div className="rounded-lg border border-card-border bg-card-bg p-6">
               <div className="mb-4 flex items-center justify-between">
                 <div>
-                  <h3 className="text-lg font-semibold text-white">Recent Research Outputs</h3>
+                  <h3 className="text-lg font-semibold text-white">{t.dashboard.recentResearchOutputs}</h3>
                   <p className="mt-1 text-sm text-gray-400">
-                    Real-time feed of analyst activities and AI strategies.
+                    {t.dashboard.realTimeFeed}
                   </p>
                 </div>
                 <div className="flex gap-2">
                   <button className="rounded-lg border border-card-border bg-sidebar-bg px-3 py-1.5 text-sm font-medium text-gray-300 hover:bg-sidebar-hover">
-                    Filter
+                    {t.dashboard.filter}
                   </button>
                   <button className="rounded-lg border border-card-border bg-sidebar-bg px-3 py-1.5 text-sm font-medium text-gray-300 hover:bg-sidebar-hover">
-                    Sort
+                    {t.dashboard.sort}
                   </button>
                 </div>
               </div>

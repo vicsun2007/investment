@@ -3,6 +3,7 @@
 import Sidebar from './Sidebar'
 import Header from './Header'
 import { ChevronDown, Download, Play, Star, Plus } from 'lucide-react'
+import { useTranslation } from '@/hooks/useTranslation'
 
 const promptTemplates = [
   {
@@ -70,6 +71,8 @@ const knowledgeHubItems = [
 ]
 
 export default function PromptFactoryPage() {
+  const { t } = useTranslation()
+  
   return (
     <div className="flex h-screen overflow-hidden bg-background">
       <Sidebar />
@@ -80,21 +83,21 @@ export default function PromptFactoryPage() {
             {/* Page Header */}
             <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold text-white">Prompt Factory & Knowledge Hub</h2>
+                <h2 className="text-2xl font-bold text-white">{t.promptFactory.title}</h2>
                 <p className="mt-1 text-sm text-gray-400">
-                  Scale your research with high-performing AI templates and proprietary deal insights.
+                  {t.promptFactory.subtitle}
                 </p>
               </div>
               <button className="flex items-center gap-2 rounded-lg border border-card-border bg-card-bg px-4 py-2 text-sm font-medium text-white hover:bg-sidebar-hover">
                 <Download className="h-4 w-4" />
-                Export Library
+                {t.promptFactory.exportLibrary}
               </button>
             </div>
 
             {/* Filters */}
             <div className="mb-6 flex gap-2">
               <button className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white">
-                All Sectors
+                {t.promptFactory.allSectors}
               </button>
               <button className="flex items-center gap-1 rounded-lg border border-card-border bg-card-bg px-4 py-2 text-sm font-medium text-gray-300 hover:bg-sidebar-hover">
                 SaaS
@@ -116,9 +119,9 @@ export default function PromptFactoryPage() {
             {/* High-Value Prompt Templates */}
             <div className="mb-6">
               <div className="mb-4 flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-white">High-Value Prompt Templates</h3>
+                <h3 className="text-lg font-semibold text-white">{t.promptFactory.highValuePrompts}</h3>
                 <a href="#" className="text-sm text-primary hover:underline">
-                  View All Prompts
+                  {t.promptFactory.viewAllPrompts}
                 </a>
               </div>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -177,18 +180,18 @@ export default function PromptFactoryPage() {
             {/* Knowledge Hub */}
             <div>
               <div className="mb-4 flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-white">Knowledge Hub</h3>
+                <h3 className="text-lg font-semibold text-white">{t.promptFactory.knowledgeHub}</h3>
                 <div className="flex items-center gap-3">
                   <div className="flex gap-1 rounded-lg border border-card-border bg-sidebar-bg">
                     <button className="rounded-lg bg-primary px-3 py-1.5 text-xs font-medium text-white">
-                      List View
+                      {t.promptFactory.listView}
                     </button>
                     <button className="rounded-lg px-3 py-1.5 text-xs font-medium text-gray-400 hover:text-white">
-                      Graph
+                      {t.promptFactory.graph}
                     </button>
                   </div>
                   <button className="flex items-center gap-2 rounded-lg border border-card-border bg-card-bg px-3 py-1.5 text-sm font-medium text-gray-300 hover:bg-sidebar-hover">
-                    Filter Research
+                    {t.promptFactory.filterResearch}
                   </button>
                 </div>
               </div>

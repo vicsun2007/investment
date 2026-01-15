@@ -12,19 +12,21 @@ import {
   Sparkles
 } from 'lucide-react'
 import { clsx } from 'clsx'
-
-const navigation = [
-  { name: 'Dashboard', href: '/', icon: LayoutDashboard },
-  { name: 'Reports', href: '/reports', icon: FileText },
-  { name: 'Prompt Factory', href: '/prompt-factory', icon: Sparkles },
-  { name: 'Workspace', href: '/workspace', icon: BookOpen },
-  { name: 'Fund Portfolio', href: '/portfolio', icon: FolderKanban },
-  { name: 'Team Performance', href: '/team', icon: Users },
-  { name: 'Settings', href: '/settings', icon: Settings },
-]
+import { useTranslation } from '@/hooks/useTranslation'
 
 export default function Sidebar() {
+  const { t } = useTranslation()
   const pathname = usePathname()
+
+  const navigation = [
+    { name: t.sidebar.dashboard, href: '/', icon: LayoutDashboard },
+    { name: t.sidebar.reports, href: '/reports', icon: FileText },
+    { name: t.sidebar.promptFactory, href: '/prompt-factory', icon: Sparkles },
+    { name: t.sidebar.workspace, href: '/workspace', icon: BookOpen },
+    { name: t.sidebar.fundPortfolio, href: '/portfolio', icon: FolderKanban },
+    { name: t.sidebar.teamPerformance, href: '/team', icon: Users },
+    { name: t.sidebar.settings, href: '/settings', icon: Settings },
+  ]
 
   return (
     <div className="flex h-screen w-64 flex-col bg-sidebar-bg border-r border-card-border">
@@ -64,7 +66,7 @@ export default function Sidebar() {
       {/* Storage Usage */}
       <div className="border-t border-card-border px-4 py-4">
         <div className="mb-2 flex items-center justify-between text-xs">
-          <span className="text-gray-400">STORAGE USAGE</span>
+          <span className="text-gray-400">{t.sidebar.storageUsage}</span>
         </div>
         <div className="mb-1 flex items-center justify-between text-xs text-gray-300">
           <span>12.4 GB of 20 GB used</span>
@@ -81,7 +83,7 @@ export default function Sidebar() {
       <div className="border-t border-card-border px-4 py-4">
         <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-primary-dark">
           <Sparkles className="h-4 w-4" />
-          New Research
+          {t.sidebar.newResearch}
         </button>
       </div>
     </div>

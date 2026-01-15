@@ -5,6 +5,7 @@ import Header from './Header'
 import { Upload, FileText, Search, Filter, MoreVertical, Eye, Download, Star } from 'lucide-react'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useTranslation } from '@/hooks/useTranslation'
 
 const mockReports = [
   {
@@ -44,6 +45,7 @@ const mockReports = [
 
 export default function ReportsPage() {
   const router = useRouter()
+  const { t } = useTranslation()
   const [searchQuery, setSearchQuery] = useState('')
 
   return (
@@ -56,14 +58,14 @@ export default function ReportsPage() {
             {/* Page Header */}
             <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold text-white">Research Reports</h2>
+                <h2 className="text-2xl font-bold text-white">{t.reports.title}</h2>
                 <p className="mt-1 text-sm text-gray-400">
-                  Manage and analyze investment research reports
+                  {t.reports.subtitle}
                 </p>
               </div>
               <button className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
                 <Upload className="h-4 w-4" />
-                Upload Report
+                {t.reports.uploadReport}
               </button>
             </div>
 
@@ -73,7 +75,7 @@ export default function ReportsPage() {
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Search reports..."
+                  placeholder={t.reports.searchPlaceholder}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full rounded-lg border border-card-border bg-card-bg pl-10 pr-4 py-2 text-sm text-white placeholder-gray-400 focus:border-primary focus:outline-none"
@@ -81,7 +83,7 @@ export default function ReportsPage() {
               </div>
               <button className="flex items-center gap-2 rounded-lg border border-card-border bg-card-bg px-4 py-2 text-sm font-medium text-gray-300 hover:bg-sidebar-hover">
                 <Filter className="h-4 w-4" />
-                Filter
+                {t.reports.filter}
               </button>
             </div>
 
@@ -116,7 +118,7 @@ export default function ReportsPage() {
                                 : 'bg-yellow-500/20 text-yellow-400'
                             }`}
                           >
-                            {report.status}
+                            {report.status === 'Analyzed' ? t.reports.status.analyzed : t.reports.status.pending}
                           </span>
                           {report.score && (
                             <div className="flex items-center gap-1 text-sm text-gray-300">
@@ -125,7 +127,7 @@ export default function ReportsPage() {
                             </div>
                           )}
                           {report.analyst && (
-                            <span className="text-sm text-gray-400">Analyst: {report.analyst}</span>
+                            <span className="text-sm text-gray-400">{t.reports.analyst}: {report.analyst}</span>
                           )}
                         </div>
                       </div>

@@ -14,7 +14,8 @@ interface ReportDetailPageProps {
 
 export default function ReportDetailPage({ reportId }: ReportDetailPageProps) {
   const router = useRouter()
-  const { getRatingsByReportId, addRating } = useStore()
+  const getRatingsByReportId = useStore((state) => state.getRatingsByReportId)
+  const addRating = useStore((state) => state.addRating)
   const [isRatingModalOpen, setIsRatingModalOpen] = useState(false)
 
   // Mock report data - in real app, fetch from API
@@ -152,7 +153,9 @@ export default function ReportDetailPage({ reportId }: ReportDetailPageProps) {
                           <div>
                             <div className="text-sm font-medium text-white">{rating.rater}</div>
                             <div className="text-xs text-gray-400">
-                              {new Date(rating.date).toLocaleDateString()}
+                              {typeof window !== 'undefined' 
+                                ? new Date(rating.date).toLocaleDateString()
+                                : rating.date.split('T')[0]}
                             </div>
                           </div>
                         </div>

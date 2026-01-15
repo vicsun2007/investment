@@ -4,6 +4,7 @@ import Sidebar from './Sidebar'
 import Header from './Header'
 import { TrendingUp, TrendingDown, DollarSign, Building2, Calendar, MapPin, Users, BarChart3 } from 'lucide-react'
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { useTranslation } from '@/hooks/useTranslation'
 
 const portfolioCompanies = [
   {
@@ -78,6 +79,8 @@ const portfolioStats = {
 }
 
 export default function PortfolioPage() {
+  const { t } = useTranslation()
+  
   // Mock data for Portfolio Performance
   const performanceData = [
     { month: 'Jan 2022', valuation: 45, invested: 14.5 },
@@ -101,18 +104,18 @@ export default function PortfolioPage() {
             {/* Page Header */}
             <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold text-white">Fund Portfolio</h2>
+                <h2 className="text-2xl font-bold text-white">{t.portfolio.title}</h2>
                 <p className="mt-1 text-sm text-gray-400">
-                  Overview of portfolio companies and investment performance
+                  {t.portfolio.subtitle}
                 </p>
               </div>
               <div className="flex gap-3">
                 <button className="flex items-center gap-2 rounded-lg border border-card-border bg-card-bg px-4 py-2 text-sm font-medium text-white hover:bg-sidebar-hover">
                   <BarChart3 className="h-4 w-4" />
-                  Export Report
+                  {t.portfolio.exportReport}
                 </button>
                 <button className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
-                  Add Company
+                  {t.portfolio.addCompany}
                 </button>
               </div>
             </div>
@@ -121,53 +124,53 @@ export default function PortfolioPage() {
             <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               <div className="rounded-lg border border-card-border bg-card-bg p-6">
                 <div className="mb-2 flex items-center justify-between">
-                  <p className="text-sm font-medium text-gray-400">Total Invested</p>
+                  <p className="text-sm font-medium text-gray-400">{t.portfolio.totalInvested}</p>
                   <DollarSign className="h-5 w-5 text-blue-400" />
                 </div>
                 <p className="text-2xl font-bold text-white">{portfolioStats.totalInvestments}</p>
-                <p className="mt-1 text-xs text-gray-400">Across {portfolioStats.activeCompanies} companies</p>
+                <p className="mt-1 text-xs text-gray-400">{t.portfolio.acrossCompanies} {portfolioStats.activeCompanies}</p>
               </div>
 
               <div className="rounded-lg border border-card-border bg-card-bg p-6">
                 <div className="mb-2 flex items-center justify-between">
-                  <p className="text-sm font-medium text-gray-400">Total Valuation</p>
+                  <p className="text-sm font-medium text-gray-400">{t.portfolio.totalValuation}</p>
                   <TrendingUp className="h-5 w-5 text-green-400" />
                 </div>
                 <p className="text-2xl font-bold text-white">{portfolioStats.totalValuation}</p>
-                <p className="mt-1 text-xs text-green-400">+{portfolioStats.averageMultiple} average multiple</p>
+                <p className="mt-1 text-xs text-green-400">+{portfolioStats.averageMultiple} {t.portfolio.averageMultiple}</p>
               </div>
 
               <div className="rounded-lg border border-card-border bg-card-bg p-6">
                 <div className="mb-2 flex items-center justify-between">
-                  <p className="text-sm font-medium text-gray-400">Average IRR</p>
+                  <p className="text-sm font-medium text-gray-400">{t.portfolio.averageIRR}</p>
                   <BarChart3 className="h-5 w-5 text-purple-400" />
                 </div>
                 <p className="text-2xl font-bold text-white">{portfolioStats.averageIRR}</p>
-                <p className="mt-1 text-xs text-gray-400">Weighted average</p>
+                <p className="mt-1 text-xs text-gray-400">{t.portfolio.weightedAverage}</p>
               </div>
 
               <div className="rounded-lg border border-card-border bg-card-bg p-6">
                 <div className="mb-2 flex items-center justify-between">
-                  <p className="text-sm font-medium text-gray-400">Active Companies</p>
+                  <p className="text-sm font-medium text-gray-400">{t.portfolio.activeCompanies}</p>
                   <Building2 className="h-5 w-5 text-yellow-400" />
                 </div>
                 <p className="text-2xl font-bold text-white">
                   {portfolioStats.activeCompanies}/{portfolioStats.totalCompanies}
                 </p>
-                <p className="mt-1 text-xs text-gray-400">100% active</p>
+                <p className="mt-1 text-xs text-gray-400">100% {t.portfolio.active}</p>
               </div>
             </div>
 
             {/* Portfolio Companies Table */}
             <div className="rounded-lg border border-card-border bg-card-bg p-6">
               <div className="mb-4 flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-white">Portfolio Companies</h3>
+                <h3 className="text-lg font-semibold text-white">{t.portfolio.portfolioCompanies}</h3>
                 <div className="flex gap-2">
                   <button className="rounded-lg border border-card-border bg-sidebar-bg px-3 py-1.5 text-sm font-medium text-gray-300 hover:bg-sidebar-hover">
-                    Filter
+                    {t.common.filter}
                   </button>
                   <button className="rounded-lg border border-card-border bg-sidebar-bg px-3 py-1.5 text-sm font-medium text-gray-300 hover:bg-sidebar-hover">
-                    Sort
+                    {t.common.sort}
                   </button>
                 </div>
               </div>
@@ -177,28 +180,28 @@ export default function PortfolioPage() {
                   <thead>
                     <tr className="border-b border-card-border">
                       <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
-                        Company
+                        {t.portfolio.company}
                       </th>
                       <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
-                        Sector
+                        {t.portfolio.sector}
                       </th>
                       <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
-                        Stage
+                        {t.portfolio.stage}
                       </th>
                       <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
-                        Investment
+                        {t.portfolio.investment}
                       </th>
                       <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
-                        Valuation
+                        {t.portfolio.valuation}
                       </th>
                       <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
-                        Multiple
+                        {t.portfolio.multiple}
                       </th>
                       <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
-                        IRR
+                        {t.portfolio.irr}
                       </th>
                       <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-400">
-                        Status
+                        {t.portfolio.status}
                       </th>
                     </tr>
                   </thead>
@@ -244,7 +247,7 @@ export default function PortfolioPage() {
                         </td>
                         <td className="px-4 py-4">
                           <span className="rounded-full bg-green-500/20 px-2 py-1 text-xs font-medium text-green-400">
-                            {company.status}
+                            {company.status === 'Active' ? t.portfolio.active : company.status}
                           </span>
                         </td>
                       </tr>
@@ -257,7 +260,7 @@ export default function PortfolioPage() {
             {/* Performance Chart Placeholder */}
             <div className="mt-6 rounded-lg border border-card-border bg-card-bg p-6">
               <div className="mb-4 flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-white">Portfolio Performance Over Time</h3>
+                <h3 className="text-lg font-semibold text-white">{t.portfolio.portfolioPerformance}</h3>
                 <div className="flex gap-2">
                   <button className="rounded-lg border border-card-border bg-sidebar-bg px-3 py-1.5 text-xs font-medium text-gray-300 hover:bg-sidebar-hover">
                     1Y

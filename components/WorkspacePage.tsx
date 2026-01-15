@@ -4,8 +4,10 @@ import Sidebar from './Sidebar'
 import Header from './Header'
 import { Upload, FileText, RefreshCw, ChevronDown, Zap, Copy, ThumbsUp, ThumbsDown, Shield, Check } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from '@/hooks/useTranslation'
 
 export default function WorkspacePage() {
+  const { t } = useTranslation()
   const [selectedModel, setSelectedModel] = useState('Claude 3.5 Sonnet')
 
   return (
@@ -18,18 +20,18 @@ export default function WorkspacePage() {
           <div className="w-80 border-r border-card-border bg-card-bg p-4">
             <div className="mb-6">
               <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-400">
-                CONTEXT LIBRARY
+                {t.workspace.contextLibrary}
               </h3>
               <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-card-border bg-sidebar-bg p-8 text-center">
                 <Upload className="mb-3 h-8 w-8 text-gray-400" />
-                <p className="mb-1 text-sm font-medium text-white">Upload Reports</p>
+                <p className="mb-1 text-sm font-medium text-white">{t.workspace.uploadReports}</p>
                 <p className="text-xs text-gray-400">PDF, XLSX, CSV (Max 50MB)</p>
               </div>
             </div>
 
             <div>
               <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-400">
-                RECENT DOCUMENTS
+                {t.workspace.recentDocuments}
               </h3>
               <div className="space-y-2">
                 <div className="flex items-center gap-3 rounded-lg border border-card-border bg-sidebar-bg p-3">
@@ -40,7 +42,7 @@ export default function WorkspacePage() {
                   </div>
                   <div className="flex items-center gap-1 text-xs text-gray-400">
                     <RefreshCw className="h-3 w-3 animate-spin" />
-                    Processing...
+                    {t.workspace.processing}
                   </div>
                 </div>
                 <div className="flex items-center gap-3 rounded-lg border border-card-border bg-sidebar-bg p-3">
@@ -72,7 +74,7 @@ export default function WorkspacePage() {
 
                 {/* Header */}
                 <div className="mb-6 flex items-center justify-between">
-                  <h2 className="text-2xl font-bold text-white">AI Research Copilot</h2>
+                  <h2 className="text-2xl font-bold text-white">{t.workspace.aiResearchCopilot}</h2>
                   <div className="flex items-center gap-2">
                     <button className="flex items-center gap-2 rounded-lg border border-card-border bg-card-bg px-3 py-2 text-sm font-medium text-white hover:bg-sidebar-hover">
                       {selectedModel}
@@ -116,13 +118,13 @@ export default function WorkspacePage() {
                         <thead>
                           <tr className="border-b border-card-border">
                             <th className="px-4 py-2 text-left text-xs font-medium text-gray-400">
-                              Risk Factor
+                              {t.workspace.riskFactor}
                             </th>
                             <th className="px-4 py-2 text-left text-xs font-medium text-gray-400">
-                              Impact
+                              {t.workspace.impact}
                             </th>
                             <th className="px-4 py-2 text-left text-xs font-medium text-gray-400">
-                              Mitigation Strategy
+                              {t.workspace.mitigationStrategy}
                             </th>
                           </tr>
                         </thead>
@@ -131,7 +133,7 @@ export default function WorkspacePage() {
                             <td className="px-4 py-3 text-sm text-white">Regulatory Tightening</td>
                             <td className="px-4 py-3">
                               <span className="rounded-full bg-red-500/20 px-2 py-1 text-xs font-medium text-red-400">
-                                High
+                                {t.workspace.high}
                               </span>
                             </td>
                             <td className="px-4 py-3 text-sm text-gray-300">
@@ -142,7 +144,7 @@ export default function WorkspacePage() {
                             <td className="px-4 py-3 text-sm text-white">Credit Defaults</td>
                             <td className="px-4 py-3">
                               <span className="rounded-full bg-orange-500/20 px-2 py-1 text-xs font-medium text-orange-400">
-                                Medium
+                                {t.workspace.medium}
                               </span>
                             </td>
                             <td className="px-4 py-3 text-sm text-gray-300">
@@ -155,7 +157,7 @@ export default function WorkspacePage() {
 
                     {/* Citations */}
                     <div className="mb-4 flex items-center gap-2 text-xs text-gray-400">
-                      <span>CITATIONS:</span>
+                      <span>{t.workspace.citations}:</span>
                       <a href="#" className="flex items-center gap-1 text-primary hover:underline">
                         <FileText className="h-3 w-3" />
                         Q3 Market Outlook.pdf (p. 24)
@@ -166,14 +168,14 @@ export default function WorkspacePage() {
                     <div className="flex items-center gap-2">
                       <button className="flex items-center gap-1 rounded-lg border border-card-border bg-sidebar-bg px-3 py-1.5 text-xs font-medium text-gray-300 hover:bg-sidebar-hover">
                         <ThumbsUp className="h-3 w-3" />
-                        Helpful
+                        {t.workspace.helpful}
                       </button>
                       <button className="flex items-center gap-1 rounded-lg border border-card-border bg-sidebar-bg px-3 py-1.5 text-xs font-medium text-gray-300 hover:bg-sidebar-hover">
                         <ThumbsDown className="h-3 w-3" />
                       </button>
                       <button className="flex items-center gap-1 rounded-lg border border-card-border bg-sidebar-bg px-3 py-1.5 text-xs font-medium text-gray-300 hover:bg-sidebar-hover">
                         <Copy className="h-3 w-3" />
-                        Copy
+                        {t.workspace.copy}
                       </button>
                     </div>
                   </div>
@@ -183,7 +185,7 @@ export default function WorkspacePage() {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="Ask anything about your investment data..."
+                    placeholder={t.workspace.askAnything}
                     className="w-full rounded-lg border border-card-border bg-card-bg px-4 py-3 pl-10 pr-12 text-sm text-white placeholder-gray-400 focus:border-primary focus:outline-none"
                   />
                   <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
@@ -196,8 +198,7 @@ export default function WorkspacePage() {
 
                 {/* Disclaimer */}
                 <p className="mt-2 text-xs text-gray-500">
-                  AlphaIntel AI can make mistakes. Verify critical data with original source
-                  documents.
+                  {t.workspace.disclaimer}
                 </p>
 
                 {/* Vault Security */}
@@ -205,9 +206,9 @@ export default function WorkspacePage() {
                   <div className="flex items-center gap-1 rounded-lg bg-green-500/20 px-2 py-1 text-green-400">
                     <Shield className="h-3 w-3" />
                     <Check className="h-3 w-3" />
-                    <span>VAULT SECURITY</span>
+                    <span>{t.workspace.vaultSecurity}</span>
                   </div>
-                  <span>End-to-end encrypted</span>
+                  <span>{t.workspace.endToEndEncrypted}</span>
                 </div>
               </div>
             </div>
@@ -218,28 +219,28 @@ export default function WorkspacePage() {
             <div className="mb-6">
               <div className="mb-3 flex items-center justify-between">
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400">
-                  PROMPT FACTORY
+                  {t.workspace.promptFactory}
                 </h3>
                 <button className="text-gray-400 hover:text-white">?</button>
               </div>
 
               <div className="mb-4">
                 <label className="mb-2 block text-xs font-medium text-gray-400">
-                  CONTEXT MODE
+                  {t.workspace.contextMode}
                 </label>
                 <div className="flex gap-2">
                   <button className="flex-1 rounded-lg bg-primary px-3 py-2 text-xs font-medium text-white">
-                    Discovery
+                    {t.workspace.discovery}
                   </button>
                   <button className="flex-1 rounded-lg border border-card-border bg-sidebar-bg px-3 py-2 text-xs font-medium text-gray-300 hover:bg-sidebar-hover">
-                    Financial
+                    {t.workspace.financial}
                   </button>
                 </div>
               </div>
 
               <div className="mb-4">
                 <label className="mb-2 block text-xs font-medium text-gray-400">
-                  KEY INDICATORS
+                  {t.workspace.keyIndicators}
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {['CAGR', 'TAM', 'Burn Rate', 'EBITDA'].map((indicator) => (
@@ -251,30 +252,30 @@ export default function WorkspacePage() {
                     </button>
                   ))}
                   <button className="rounded-lg border border-card-border bg-sidebar-bg px-2 py-1 text-xs font-medium text-primary hover:bg-sidebar-hover">
-                    + Add
+                    {t.workspace.add}
                   </button>
                 </div>
               </div>
 
               <div className="mb-4">
                 <label className="mb-2 block text-xs font-medium text-gray-400">
-                  ANALYSIS FOCUS
+                  {t.workspace.analysisFocus}
                 </label>
                 <button className="flex w-full items-center justify-between rounded-lg border border-card-border bg-sidebar-bg px-3 py-2 text-xs font-medium text-gray-300 hover:bg-sidebar-hover">
-                  Competitive Landscape
+                  {t.workspace.competitiveLandscape}
                   <ChevronDown className="h-4 w-4" />
                 </button>
               </div>
 
               <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-dark">
                 <Zap className="h-4 w-4" />
-                Build & Apply Prompt
+                {t.workspace.buildAndApplyPrompt}
               </button>
             </div>
 
             <div>
               <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-400">
-                SAVED TEMPLATES
+                {t.workspace.savedTemplates}
               </h3>
               <div className="space-y-3">
                 <div className="rounded-lg border border-card-border bg-sidebar-bg p-3">
